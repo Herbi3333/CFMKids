@@ -1,28 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:cfmkids/main.dart';
-import 'package:cfmkids/mainpage.dart';
 
 void main() {
   testWidgets('Button tap should trigger a function',
-      (WidgetTester tester) async {
+      (WidgetTester testerSUB) async {
     // Build the widget tree
-    await tester.pumpWidget(MaterialApp(
-      home: HomePage(
-        body: ElevatedButton(
-          onPressed: () {
-            print('Button tapped!');
-          },
-          child: Text('Button'),
-        ),
-      ),
-    ));
+    await testerSUB.pumpWidget(const MaterialApp(home: HomePage()));
 
     // Tap the button
-    await tester.tap(find.byType(ElevatedButton));
-    await tester.pump();
+    final signupBtn = find.byKey(const Key('signupBtn'));
+    await testerSUB.tap(signupBtn);
+    await testerSUB.pump();
 
     // Verify that the function is called
-    expect(find.text('Button tapped!'), findsOneWidget);
+    expect(find.text('Sign Up Button Pressed'), findsOneWidget);
   });
 }
